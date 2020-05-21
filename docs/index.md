@@ -57,8 +57,8 @@ name: Table-of-Contents
 1. Review Intro to Terraform Materials<br>
 1. Additional Depth on Terraform Basics<br>
 1. Use the Terraform CLI (Outside of the core workflow)<br>
+⚗️ **Lab - Terraform with Kubernetes**<br>
 1. Additional Depth on State<br>
-⚗️ **Lab - Terraform with Kubernetes**
 1. Additional Depth on "Read, generate, and modify configuration"<br>
 1. Additional Depth on Terraform Cloud and Terraform Enterprise Capabilities<br>
 Lab
@@ -872,6 +872,11 @@ name: verbose-logging
 export TF_LOG=debug
 
 ---
+name: kubernetes-lab
+# Kubernetes Lab
+* Instructor to provide link for Kubernetes Lab
+
+---
 name: additional-depth-on-state
 # Additional Depth on state
 
@@ -968,6 +973,11 @@ name: exam-process
 * 60 minutes
 * ~60 questions
 * Multiple choice
+
+---
+name: terraform-cloud-modules-lab
+# Terraform Cloud Modules Lab
+* Instructor to provide link for Terarform Cloud Modules Lab
 
 ---
 name: the-end
