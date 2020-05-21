@@ -698,12 +698,6 @@ Provisioners only run the first time a Terraform run is executed. In this sense,
 On the other hand, if you want immutable infrastructure you should consider using our [Packer](https://packer.io) tool.
 
 ---
-name: Chapter-5
-class: title
-# Chapter 5
-## Terraform State
-
----
 name: terraform-state
 class: compact
 # Terraform State
@@ -917,6 +911,63 @@ name: backend-partial-configuration
 * Keeps secrets out of Terraform code
 * Makes code more reusable by allowing different environments to use different settings
 
+---
+name: additional-depth-on-read-generate-modify
+# Additional Depth on Read, generate, and modify configuration
+
+---
+name: dynamic-blocks
+# Dynamic blocks
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+  name   = "${random_id.cluster_name.hex}-vpc"
+
+  cidr = "10.${var.subnet_second_octet}.0.0/16"
+
+  azs             = data.aws_availability_zones.available.names
+  public_subnets = [
+    for num in range(0, length(data.aws_availability_zones.available.names)) :
+    cidrsubnet("10.${var.subnet_second_octet}.101.0/16", 8, 101 + num)
+  ]
+}
+
+---
+name: dependency-management
+# Dependency management 
+
+* Anytime a resource, data source, local, or variable is referenced, a graph edge is created
+* Terraform assumes that these graph edges are dependancies
+* Explicit "depends_on" metadata feature available to force additional graph edges
+** Behavior of data sources with depends_on on resources can be unexpected
+
+---
+name: additional-depth-tfc-tfe
+# Additional Depth on Terraform Cloud and Enterprise capabilities 
+
+---
+name: differentiate-oss-and-tfe-workspaces
+# Differentiate OSS and TFE workspaces
+
+* OSS workspaces allow multiple state files in one folder
+* ENT workspaces attached to VCS repositories, can be attached multiple times
+
+---
+name: summarize-features-of-tfc
+# Summarize features of Terraform Cloud
+
+https://www.hashicorp.com/products/terraform/pricing/
+
+---
+name: exam-process
+# Exam Process
+
+* 60 minutes
+* ~60 questions
+* Multiple choice
 
 ---
 name: the-end
