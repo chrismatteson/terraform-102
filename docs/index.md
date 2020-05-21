@@ -1,10 +1,9 @@
-name: Azure-Terraform-102
+name: Terraform-102
 class: center
 count: false
 ![:scale 60%](images/tfaz.png)
 <br><br>
 ## Terraform Associate Preperation
-### On Azure
 ???
 Welcome to the preparation guide to Terraform Associate on Azure. This slide deck is written entirely in Markdown language, which means you can make edits or additions, then submit a pull request to add your changes to the master copy. To make edits to the slide deck simply fork this repository, edit the Markdown files, and submit a pull request with your changes.
 
@@ -803,6 +802,62 @@ name: execution-mode
 name: additional-depth-on-terraform-basics
 # Additional Depth on Terraform basics
 
+---
+name: provier-installation-and-versioning
+# Provider Installation and Versioning
+
+* `terraform init` solves most provider installation
+* Two ways to version providers:
+** provider block:
+provider "aws" {
+  version = "~>2.0"
+}
+** required providers block:
+terraform {
+  required_providers {
+    aws = "~2.0"
+  }
+}
+
+---
+name: using-multiple-providers
+# Using Multiple Providers
+
+Providers support aliasing
+
+provider "aws" {
+  alias  = "us-east-1"
+  region = "us-east-1"
+}
+provider "aws" {
+  alias  = "us-west-1"
+  region = "us-west-1"
+}
+
+resource:
+provider = aws.us-east-1
+
+module:
+providers {
+  aws = aws.us-east-1
+}
+
+---
+name: terraform-finds-providers
+# How Terraform Finds Providers
+
+Terraform init looks to:
+`~/.terraform.d/plugins` on unix systems
+`%APPDATA%\terraform.d\plugins` on windows systems
+https://releases.hashicorp.io
+
+---
+name: when-to-use-provisioners
+# When to use Provisioners
+
+Provisioners should be treated as a last resort to solve problems which aren't solved well using Terraform's typlically declartive language
+* local-exec: Runs code locally on system where Terraform is being ran with permissions Terroform has
+* remote-exec: Requires connection information and uses SSH or WINRM to run commands remotely on another system
 
 ---
 name: the-end
