@@ -1,7 +1,7 @@
 name: Terraform-102
 class: center
 count: false
-![:scale 60%](images/tfaz.png)
+![:scale 60%](images/tf.png)
 <br><br>
 ## Terraform Associate Preperation
 ???
