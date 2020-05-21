@@ -860,6 +860,65 @@ Provisioners should be treated as a last resort to solve problems which aren't s
 * remote-exec: Requires connection information and uses SSH or WINRM to run commands remotely on another system
 
 ---
+name: terraform-cli-outside-core-workflow
+# Use the Terraform CLI (outside core workflow)
+
+---
+name: terraform-taint
+# Terraform Taint
+
+---
+name: terraform-workspace
+# Terraform Workspace
+
+---
+name: verbose-logging
+# Verbose Logging
+
+export TF_LOG=debug
+
+---
+name: additional-depth-on-state
+# Additional Depth on state
+
+---
+name: state-locking
+# State Locking
+
+---
+name: backend-authentication-methods
+# Backend Authentication Methods
+
+* All configuration can be passed in code, but isn't recommended
+* Does not support variables
+* Recommendation is to use partial configuration
+
+---
+name: remote-state-storage
+# Remote State Storage
+
+* Enhanced backends:
+** Local
+** Remote
+* Standard backends:
+* Consul
+* S3
+* Azurerm
+* etc
+
+---
+name: terraform-refresh
+# Terraform Refresh
+
+---
+name: backend-partial-configuration
+# Backend Partial Configuration and Secret Management
+
+* Keeps secrets out of Terraform code
+* Makes code more reusable by allowing different environments to use different settings
+
+
+---
 name: the-end
 class: img-caption
 
