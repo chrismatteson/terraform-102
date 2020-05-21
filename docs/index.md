@@ -861,15 +861,26 @@ name: terraform-cli-outside-core-workflow
 name: terraform-taint
 # Terraform Taint
 
+$ terraform taint aws_security_group.allow_all
+The resource aws_security_group.allow_all in the module root has been marked as tainted.
+
 ---
 name: terraform-workspace
 # Terraform Workspace
+
+$ terraform workspace list
+  default
+* development
+  jsmith-test
+
+$ terraform workspace select default
+Switched to workspace "default".
 
 ---
 name: verbose-logging
 # Verbose Logging
 
-export TF_LOG=debug
+$ export TF_LOG=debug
 
 ---
 name: kubernetes-lab
