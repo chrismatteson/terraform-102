@@ -975,6 +975,7 @@ name: differentiate-oss-and-tfe-workspaces
 name: summarize-features-of-tfc
 # Summarize features of Terraform Cloud
 
+* Review hover text for high level of enterprise features
 https://www.hashicorp.com/products/terraform/pricing/
 
 ---
@@ -984,6 +985,8 @@ name: exam-process
 * 60 minutes
 * ~60 questions
 * Multiple choice
+* All questions are tied directly to an objective
+* We use "Bloom's Taxonomy" to write questions
 
 ---
 name: terraform-cloud-modules-lab
