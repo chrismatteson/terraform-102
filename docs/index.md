@@ -794,7 +794,9 @@ name: execution-mode
 
 ---
 name: additional-depth-on-terraform-basics
-# Additional Depth on Terraform basics
+class: title
+# Chatper 2
+## Additional Depth on Terraform basics
 
 ---
 name: provier-installation-and-versioning
@@ -803,15 +805,15 @@ name: provier-installation-and-versioning
 * `terraform init` solves most provider installation
 * Two ways to version providers:
 ** provider block:
-provider "aws" {
-  version = "~>2.0"
-}
+provider "aws" {<br>
+  version = "~>2.0"<br>
+}<br>
 ** required providers block:
-terraform {
-  required_providers {
-    aws = "~2.0"
-  }
-}
+terraform {<br>
+  required_providers {<br>
+    aws = "~2.0"<br>
+  }<br>
+}<br>
 
 ---
 name: using-multiple-providers
@@ -819,22 +821,22 @@ name: using-multiple-providers
 
 Providers support aliasing
 
-provider "aws" {
-  alias  = "us-east-1"
-  region = "us-east-1"
-}
-provider "aws" {
-  alias  = "us-west-1"
-  region = "us-west-1"
-}
-
-resource:
-provider = aws.us-east-1
-
-module:
-providers {
-  aws = aws.us-east-1
-}
+provider "aws" {<br>
+  alias  = "us-east-1"<br>
+  region = "us-east-1"<br>
+}<br>
+provider "aws" {<br>
+  alias  = "us-west-1"<br>
+  region = "us-west-1"<br>
+}<br>
+<br>
+resource:<br>
+provider = aws.us-east-1<br>
+<br>
+module:<br>
+providers {<br>
+  aws = aws.us-east-1<br>
+}<br>
 
 ---
 name: terraform-finds-providers
@@ -850,12 +852,14 @@ name: when-to-use-provisioners
 # When to use Provisioners
 
 Provisioners should be treated as a last resort to solve problems which aren't solved well using Terraform's typlically declartive language
-* local-exec: Runs code locally on system where Terraform is being ran with permissions Terroform has
+* local-exec: Runs code locally on system where Terraform is being ran with permissions Terraform has
 * remote-exec: Requires connection information and uses SSH or WINRM to run commands remotely on another system
 
 ---
 name: terraform-cli-outside-core-workflow
-# Use the Terraform CLI (outside core workflow)
+class: title
+# Chapter 3
+## Use the Terraform CLI (outside core workflow)
 
 ---
 name: terraform-taint
@@ -868,19 +872,22 @@ The resource aws_security_group.allow_all in the module root has been marked as 
 name: terraform-workspace
 # Terraform Workspace
 
-$ terraform workspace list
-  default
-* development
-  jsmith-test
-
-$ terraform workspace select default
-Switched to workspace "default".
+$ terraform workspace list<br>
+  default<br>
+* development<br>
+  jsmith-test<br>
+<br>
+$ terraform workspace select default<br>
+Switched to workspace "default".<br>
 
 ---
 name: verbose-logging
 # Verbose Logging
 
 $ export TF_LOG=debug
+
+* Shows exactly what is occuring when Terraform attempts to make changes
+* debug/trace today do the same thing
 
 ---
 name: kubernetes-lab
@@ -889,11 +896,17 @@ name: kubernetes-lab
 
 ---
 name: additional-depth-on-state
-# Additional Depth on state
+class: title
+# Chapter 4
+## Additional Depth on state
 
 ---
 name: state-locking
 # State Locking
+
+* Important when using Terraform with a team
+* force-unlock command useful if Terraform breaks
+* Sometimes need to unlock from within state storage mechanism
 
 ---
 name: backend-authentication-methods
@@ -920,6 +933,10 @@ name: remote-state-storage
 name: terraform-refresh
 # Terraform Refresh
 
+* Plan and Apply automatically perform refresh
+* Refresh can be disabled on plan and apply via flag
+* Refresh command allows standalone refresh
+
 ---
 name: backend-partial-configuration
 # Backend Partial Configuration and Secret Management
@@ -929,7 +946,9 @@ name: backend-partial-configuration
 
 ---
 name: additional-depth-on-read-generate-modify
-# Additional Depth on Read, generate, and modify configuration
+class: title
+# Chapter 5
+## Additional Depth on Read, generate, and modify configuration
 
 ---
 name: dynamic-blocks
@@ -962,7 +981,9 @@ name: dependency-management
 
 ---
 name: additional-depth-tfc-tfe
-# Additional Depth on Terraform Cloud and Enterprise capabilities 
+class: title
+# Chapter 6
+## Additional Depth on Terraform Cloud and Enterprise capabilities 
 
 ---
 name: differentiate-oss-and-tfe-workspaces
@@ -977,6 +998,12 @@ name: summarize-features-of-tfc
 
 * Review hover text for high level of enterprise features
 https://www.hashicorp.com/products/terraform/pricing/
+
+---
+name: exam
+class: title
+# Chapter 3
+## Exam Process
 
 ---
 name: exam-process
