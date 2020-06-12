@@ -821,6 +821,7 @@ name: using-multiple-providers
 
 Providers support aliasing
 
+```hcl
 provider "aws" {<br>
   alias  = "us-east-1"<br>
   region = "us-east-1"<br>
@@ -837,6 +838,7 @@ module:<br>
 providers {<br>
   aws = aws.us-east-1<br>
 }<br>
+```
 
 ---
 name: terraform-finds-providers
@@ -845,7 +847,7 @@ name: terraform-finds-providers
 Terraform init looks to:
 `~/.terraform.d/plugins` on unix systems
 `%APPDATA%\terraform.d\plugins` on windows systems
-https://releases.hashicorp.io
+https://releases.hashicorp.com
 
 ---
 name: when-to-use-provisioners
