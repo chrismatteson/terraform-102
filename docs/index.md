@@ -901,7 +901,7 @@ $ export TF_LOG=debug
 ```
 
 * Shows exactly what is occuring when Terraform attempts to make changes
-* debug/trace today do the same thing
+* trace is the most detailed
 
 ---
 name: kubernetes-lab
