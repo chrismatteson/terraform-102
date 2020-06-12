@@ -168,10 +168,10 @@ name: What-is-Terraform
 ```terraform
 resource "azurerm_virtual_machine" "catapp" {
   name                = "${var.prefix}-meow"
-  location            = "${var.location}"
-  resource_group_name = "${azurerm_resource_group.myresourcegroup.name}"
-  vm_size             = "${var.vm_size}"
-  network_interface_ids         = ["${azurerm_network_interface.catapp-nic.id}"]
+  location            = var.location
+  resource_group_name = azurerm_resource_group.myresourcegroup.name
+  vm_size             = var.vm_size
+  network_interface_ids         = [azurerm_network_interface.catapp-nic.id]
 ```
 * Executable Documentation
 * Human and machine readable
@@ -304,9 +304,9 @@ name: terraform-code
 ```terraform
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}-vnet"
-  location            = "${azurerm_resource_group.myresourcegroup.location}"
-  address_space       = ["${var.address_space}"]
-  resource_group_name = "${azurerm_resource_group.myresourcegroup.name}"
+  location            = azurerm_resource_group.myresourcegroup.location
+  address_space       = [var.address_space]
+  resource_group_name = azurerm_resource_group.myresourcegroup.name
 }
 ```
 
@@ -371,7 +371,7 @@ name: defining-variables
 # Where are Variables Defined?
 Terraform variables are placed in a file called *variables.tf*. Variables can have default settings. If you omit the default, the user will be prompted to enter a value. Here we are *declaring* the variables that we intend to use.
 
-```tex
+```terraform
 variable "prefix" {
   description = "This prefix will be included in the name of most resources."
 }
@@ -428,7 +428,7 @@ The terraform core program requires at least one provider to build anything.
 
 You can manually configure which version(s) of a provider you would like to use. If you leave this option out, Terraform will default to the latest available version of the provider.
 
-```hcl
+```terraform
 provider "azurerm" {
   version = "=1.35.0"
 }
@@ -437,10 +437,10 @@ provider "azurerm" {
 ---
 name: resources-building-blocks
 # Resources - Terraform Building Blocks
-```hcl
+```terraform
 resource "azurerm_resource_group" "hashitraining" {
   name     = "${var.prefix}-workshop"
-  location = "${var.location}"
+  location = var.location
 }
 ```
 
@@ -522,14 +522,14 @@ Terraform can automatically keep track of dependencies for you. Look at the two 
 ```terraform
 resource "azurerm_resource_group" "hashitraining" {
   name     = "${var.prefix}-vault-workshop"
-  location = "${var.location}"
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}-vnet"
-  location            = "${azurerm_resource_group.hashitraining.location}"
-  address_space       = ["${var.address_space}"]
-* resource_group_name = "${azurerm_resource_group.hashitraining.name}"
+  location            = azurerm_resource_group.hashitraining.location
+  address_space       = [var.address_space]
+* resource_group_name = azurerm_resource_group.hashitraining.name
 }
 ```
 
@@ -557,14 +557,14 @@ The first file is called main.tf. This is where you normally store your terrafor
 # This is the main.tf file.
 resource "azurerm_resource_group" "hashitraining" {
   name     = "${var.prefix}-vault-workshop"
-  location = "${var.location}"
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}-vnet"
-  location            = "${azurerm_resource_group.hashitraining.location}"
-  address_space       = ["${var.address_space}"]
-  resource_group_name = "${azurerm_resource_group.hashitraining.name}"
+  location            = azurerm_resource_group.hashitraining.location
+  address_space       = [var.address_space]
+  resource_group_name = azurerm_resource_group.hashitraining.name
 }
 ...
 ```
@@ -579,7 +579,7 @@ class: compact
 
 The second file is called variables.tf. This is where you define your variables and optionally set some defaults.
 
-```bash
+```terraform
 variable "prefix" {
   description = "This prefix will be included in the name of most resources."
 }
@@ -607,7 +607,7 @@ output "Vault_Server_URL" {
 }
 
 output "MySQL_Server_FQDN" {
-  value = "${azurerm_mysql_server.mysql.fqdn}"
+  value = azurerm_mysql_server.mysql.fqdn
 }
 
 output "catapp_url" {
@@ -654,9 +654,9 @@ provisioner "file" {
 
   connection {
     type     = "ssh"
-    user     = "${var.admin_username}"
-    password = "${var.admin_password}"
-    host     = "${azurerm_public_ip.catapp-pip.fqdn}"
+    user     = var.admin_username
+    password = var.admin_password
+    host     = azurerm_public_ip.catapp-pip.fqdn
   }
 }
 ```
@@ -821,32 +821,34 @@ name: using-multiple-providers
 
 Providers support aliasing
 
-```hcl
-provider "aws" {<br>
-  alias  = "us-east-1"<br>
-  region = "us-east-1"<br>
-}<br>
-provider "aws" {<br>
-  alias  = "us-west-1"<br>
-  region = "us-west-1"<br>
-}<br>
-<br>
-resource:<br>
-provider = aws.us-east-1<br>
-<br>
-module:<br>
-providers {<br>
-  aws = aws.us-east-1<br>
-}<br>
+```terraform
+provider "aws" {
+  alias  = "us-east-1"
+  region = "us-east-1"
+}
+provider "aws" {
+  alias  = "us-west-1"
+  region = "us-west-1"
+}
+```
+resource:
+```terraform
+provider = aws.us-east-1
+```
+module:
+```terraform
+providers {
+  aws = aws.us-east-1
+}
 ```
 
 ---
 name: terraform-finds-providers
 # How Terraform Finds Providers
 
-Terraform init looks to:
-`~/.terraform.d/plugins` on unix systems
-`%APPDATA%\terraform.d\plugins` on windows systems
+Terraform init looks to:<br>
+`~/.terraform.d/plugins` on unix systems<br>
+`%APPDATA%\terraform.d\plugins` on windows systems<br>
 https://releases.hashicorp.com
 
 ---
@@ -867,26 +869,31 @@ class: title
 name: terraform-taint
 # Terraform Taint
 
+```bash
 $ terraform taint aws_security_group.allow_all
+```
 The resource aws_security_group.allow_all in the module root has been marked as tainted.
 
 ---
 name: terraform-workspace
 # Terraform Workspace
 
-$ terraform workspace list<br>
-  default<br>
-* development<br>
-  jsmith-test<br>
-<br>
-$ terraform workspace select default<br>
-Switched to workspace "default".<br>
+```bash
+$ terraform workspace list
+  default
+* development
+  jsmith-test
+$ terraform workspace select default
+Switched to workspace "default".
+```
 
 ---
 name: verbose-logging
 # Verbose Logging
 
+```bash
 $ export TF_LOG=debug
+```
 
 * Shows exactly what is occuring when Terraform attempts to make changes
 * debug/trace today do the same thing
@@ -956,6 +963,7 @@ class: title
 name: dynamic-blocks
 # Dynamic blocks
 
+```terraform
 data "aws_availability_zones" "available" {
   state = "available"
 }
@@ -971,6 +979,7 @@ module "vpc" {
     cidrsubnet("10.${var.subnet_second_octet}.101.0/16", 8, 101 + num)
   ]
 }
+```
 
 ---
 name: dependency-management
