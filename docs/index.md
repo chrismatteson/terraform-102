@@ -805,15 +805,20 @@ name: provier-installation-and-versioning
 * `terraform init` solves most provider installation
 * Two ways to version providers:
 ** provider block:
-provider "aws" {<br>
-  version = "~>2.0"<br>
-}<br>
+
+```terraform
+provider "aws" {
+  version = "~>2.0"
+}
+```
 ** required providers block:
-terraform {<br>
-  required_providers {<br>
-    aws = "~2.0"<br>
-  }<br>
-}<br>
+```terraform
+terraform {
+  required_providers {
+    aws = "~2.0"
+  }
+}
+```
 
 ---
 name: using-multiple-providers
@@ -1013,7 +1018,7 @@ https://www.hashicorp.com/products/terraform/pricing/
 ---
 name: exam
 class: title
-# Chapter 3
+# Chapter 7
 ## Exam Process
 
 ---
